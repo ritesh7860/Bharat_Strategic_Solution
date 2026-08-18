@@ -428,10 +428,6 @@ export function WhyUs() {
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-2 lg:px-8">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
-          whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 1.1, ease: easeOut }}
           className="relative overflow-hidden rounded-3xl border border-border"
         >
           <motion.img
