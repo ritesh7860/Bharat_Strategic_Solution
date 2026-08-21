@@ -72,6 +72,47 @@
   --gradient-deep: linear-gradient(180deg, var(--navy-deep), var(--navy) 55%, var(--navy-deep));
   --shadow-glow: 0 0 40px -8px color-mix(in oklab, var(--electric) 55%, transparent);
   --shadow-card: 0 24px 60px -30px oklch(0 0 0 / 0.9);
+  --hero-overlay: linear-gradient(180deg, oklch(0.15 0.045 255 / 0.92), oklch(0.15 0.045 255 / 0.72) 45%, oklch(0.15 0.045 255));
+  --hero-foreground: var(--foreground);
+  --hero-muted: var(--muted-foreground);
+  --loader-background: radial-gradient(circle at 50% 44%, var(--navy-soft) 0%, var(--navy) 34%, var(--navy-deep) 76%);
+  --loader-foreground: var(--foreground);
+  --loader-muted: var(--muted-foreground);
+}
+
+:root[data-theme="light"] {
+  --navy-deep: oklch(0.96 0.012 235);
+  --navy: oklch(0.92 0.018 238);
+  --navy-soft: oklch(0.87 0.026 240);
+  --electric: oklch(0.5 0.14 225);
+  --electric-soft: oklch(0.62 0.13 205);
+  --background: oklch(0.985 0.004 250);
+  --foreground: oklch(0.22 0.035 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.035 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.035 250);
+  --primary: oklch(0.5 0.14 225);
+  --primary-foreground: oklch(0.99 0.005 250);
+  --secondary: oklch(0.91 0.021 240);
+  --secondary-foreground: oklch(0.22 0.035 250);
+  --muted: oklch(0.93 0.016 242);
+  --muted-foreground: oklch(0.47 0.035 248);
+  --accent: oklch(0.58 0.14 215);
+  --accent-foreground: oklch(0.99 0.005 250);
+  --border: oklch(0.78 0.024 240 / 80%);
+  --input: oklch(0.78 0.024 240 / 80%);
+  --ring: oklch(0.5 0.14 225);
+  --gradient-electric: linear-gradient(100deg, var(--electric), var(--electric-soft));
+  --gradient-deep: linear-gradient(180deg, var(--navy-deep), var(--navy) 55%, var(--navy-deep));
+  --shadow-glow: 0 0 35px -10px color-mix(in oklab, var(--electric) 45%, transparent);
+  --shadow-card: 0 22px 54px -34px oklch(0.32 0.04 245 / 0.42);
+  --hero-overlay: linear-gradient(90deg, oklch(0.16 0.045 255 / 0.96), oklch(0.18 0.045 255 / 0.82) 42%, oklch(0.22 0.04 250 / 0.44) 72%, oklch(0.98 0.004 250 / 0.12)), linear-gradient(180deg, transparent 52%, oklch(0.15 0.04 255 / 0.78));
+  --hero-foreground: oklch(0.98 0.005 250);
+  --hero-muted: oklch(0.87 0.025 230);
+  --loader-background: radial-gradient(circle at 50% 42%, oklch(0.33 0.065 245) 0%, oklch(0.2 0.055 250) 40%, oklch(0.12 0.035 252) 82%);
+  --loader-foreground: oklch(0.98 0.005 250);
+  --loader-muted: oklch(0.77 0.04 230);
 }
 
 @layer base {
@@ -101,6 +142,45 @@
   ::selection {
     background: color-mix(in oklab, var(--electric) 40%, transparent);
   }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.42s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+.theme-transitioning,
+.theme-transitioning * {
+  transition: background-color 280ms ease, color 220ms ease, border-color 280ms ease, box-shadow 280ms ease !important;
+}
+
+.hero-content { color: var(--hero-foreground); }
+.hero-content .text-muted-foreground { color: var(--hero-muted); }
+.initial-loader .text-muted-foreground { color: var(--loader-muted); }
+
+.loader-orbit {
+  position: absolute;
+  width: min(74vw, 35rem);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in oklab, var(--electric) 20%, transparent);
+  border-radius: 50%;
+  animation: loader-orbit 5s linear infinite;
+}
+
+.loader-orbit-one { transform: rotateX(66deg) rotateZ(20deg); }
+.loader-orbit-two { width: min(58vw, 27rem); transform: rotateX(66deg) rotateZ(-42deg); animation-direction: reverse; animation-duration: 4s; }
+.loader-mark { animation: loader-mark-pulse 2.2s ease-in-out infinite; }
+.loader-signal span { display: block; width: 46%; height: 100%; background: var(--gradient-electric); animation: loader-signal 1.25s ease-in-out infinite; }
+.route-loader-line span { display: block; height: 100%; width: 34%; background: var(--gradient-electric); animation: route-signal 0.78s ease-in-out infinite; }
+
+@keyframes loader-orbit { to { rotate: 360deg; } }
+@keyframes loader-mark-pulse { 50% { box-shadow: 0 0 55px -3px color-mix(in oklab, var(--electric) 72%, transparent); } }
+@keyframes loader-signal { from { transform: translateX(-130%); } to { transform: translateX(320%); } }
+@keyframes route-signal { from { transform: translateX(-120%); } to { transform: translateX(400%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-orbit, .loader-mark, .loader-signal span, .route-loader-line span { animation: none; }
 }
 
 @utility text-gradient {

@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SiteExperience } from "@/components/site/experience";
 
 function NotFoundComponent() {
   return (
@@ -111,6 +112,12 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          // Apply the saved preference before the page is painted, avoiding a dark-mode flash.
+          dangerouslySetInnerHTML={{
+            __html: `(() => { try { const saved = localStorage.getItem('bss-theme'); const theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); document.documentElement.dataset.theme = theme; document.documentElement.classList.toggle('dark', theme === 'dark'); document.documentElement.style.colorScheme = theme; } catch (_) {} })();`,
+          }}
+        />
       </head>
       <body>
         {children}
@@ -125,8 +132,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <SiteExperience>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </SiteExperience>
     </QueryClientProvider>
   );
 }

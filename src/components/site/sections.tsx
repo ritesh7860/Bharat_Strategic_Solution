@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 
 import { CountUp, Reveal, SectionHeading, easeOut } from "./primitives";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { ThemeToggle } from "./experience";
 import heroImg from "@/assets/hero-datacenter.jpg";
 import networkImg from "@/assets/networking.jpg";
 import amcImg from "@/assets/amc-engineer.jpg";
@@ -94,7 +95,7 @@ export function ScrollProgress() {
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
-  const bg = useTransform(scrollY, [0, 120], ["oklch(0.15 0.045 255 / 0)", "oklch(0.15 0.045 255 / 0.85)"]);
+  const bg = useTransform(scrollY, [0, 120], ["transparent", "color-mix(in oklab, var(--background) 88%, transparent)"]);
 
   return (
     <motion.header
@@ -117,7 +118,7 @@ export function Navbar() {
             <a
               key={item.href}
               href={item.href}
-              className="rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-foreground"
+              className="rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-foreground font-medium"
             >
               {item.label}
             </a>
@@ -125,6 +126,7 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <a
             href="#contact"
             className="hidden rounded-full bg-[image:var(--gradient-electric)] px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-shadow hover:shadow-[var(--shadow-glow)] sm:inline-flex"
@@ -186,10 +188,10 @@ export function Hero() {
         style={{ y, scale }}
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.15_0.045_255/0.92),oklch(0.15_0.045_255/0.72)_45%,oklch(0.15_0.045_255))]" />
+      <div className="absolute inset-0 bg-[image:var(--hero-overlay)]" />
       <div className="grid-lines absolute inset-0 opacity-40" />
 
-      <motion.div style={{ opacity: fade }} className="relative mx-auto w-full max-w-7xl px-5 py-32 lg:px-8">
+      <motion.div style={{ opacity: fade }} className="hero-content relative mx-auto w-full max-w-7xl px-5 py-32 lg:px-8">
         <div className="max-w-3xl">
           <Reveal variant="blur">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">

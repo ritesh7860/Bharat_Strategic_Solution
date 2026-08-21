@@ -1,0 +1,20 @@
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-zM5CHo_V.js
+var tsrStartManifest = () => ({ routes: {
+	__root__: {
+		filePath: "/home/unicode/Downloads/Bharat-Strategic-Solution/src/routes/__root.tsx",
+		children: ["/"],
+		preloads: ["/assets/index-DXY272oo.js"],
+		scripts: [{ attrs: {
+			type: "module",
+			async: !0,
+			src: "/assets/index-DXY272oo.js"
+		} }]
+	},
+	"/": {
+		filePath: "/home/unicode/Downloads/Bharat-Strategic-Solution/src/routes/index.tsx",
+		children: void 0,
+		preloads: ["/assets/routes-Boe5hMTu.js"]
+	}
+} });
+//#endregion
+export { tsrStartManifest };

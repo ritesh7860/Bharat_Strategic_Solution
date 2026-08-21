@@ -1,0 +1,1500 @@
+import { r as __toESM } from "../_runtime.mjs";
+import { a as useScroll, i as useTransform, r as useSpring, t as useInView } from "../_libs/framer-motion+[...].mjs";
+import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
+import { t as motion } from "../_libs/motion.mjs";
+import { n as ThemeToggle } from "./router-C3hwa37j.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-B38z0pez.js
+var import_react = /* @__PURE__ */ __toESM(require_react());
+var import_jsx_runtime = require_jsx_runtime();
+var easeOut = [
+	.22,
+	1,
+	.36,
+	1
+];
+var VARIANTS = {
+	up: {
+		hidden: {
+			opacity: 0,
+			y: 48
+		},
+		show: {
+			opacity: 1,
+			y: 0
+		}
+	},
+	left: {
+		hidden: {
+			opacity: 0,
+			x: -64
+		},
+		show: {
+			opacity: 1,
+			x: 0
+		}
+	},
+	right: {
+		hidden: {
+			opacity: 0,
+			x: 64
+		},
+		show: {
+			opacity: 1,
+			x: 0
+		}
+	},
+	scale: {
+		hidden: {
+			opacity: 0,
+			scale: .88
+		},
+		show: {
+			opacity: 1,
+			scale: 1
+		}
+	},
+	blur: {
+		hidden: {
+			opacity: 0,
+			filter: "blur(14px)",
+			y: 24
+		},
+		show: {
+			opacity: 1,
+			filter: "blur(0px)",
+			y: 0
+		}
+	},
+	rotate: {
+		hidden: {
+			opacity: 0,
+			rotateX: 45,
+			y: 40,
+			transformPerspective: 900
+		},
+		show: {
+			opacity: 1,
+			rotateX: 0,
+			y: 0
+		}
+	}
+};
+/** Generic scroll reveal with selectable motion flavour per section. */
+function Reveal({ children, delay = 0, variant = "up", className = "" }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+		className,
+		initial: "hidden",
+		whileInView: "show",
+		viewport: {
+			once: true,
+			amount: .25
+		},
+		variants: VARIANTS[variant],
+		transition: {
+			duration: .75,
+			delay,
+			ease: easeOut
+		},
+		children
+	});
+}
+function SectionHeading({ eyebrow, title, subtitle, align = "left" }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+				variant: "blur",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+					className: "inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-1.5 w-1.5 rounded-full bg-primary" }), eyebrow]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				"data-split": true,
+				className: "mt-5 text-3xl font-bold leading-tight opacity-0 sm:text-4xl md:text-5xl",
+				children: title
+			}),
+			subtitle ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+				delay: .16,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-4 text-base leading-relaxed text-muted-foreground",
+					children: subtitle
+				})
+			}) : null
+		]
+	});
+}
+/** Counts up when the element scrolls into view. */
+function CountUp({ to, suffix = "" }) {
+	const ref = (0, import_react.useRef)(null);
+	const inView = useInView(ref, {
+		once: true,
+		amount: .6
+	});
+	const [value, setValue] = (0, import_react.useState)(0);
+	(0, import_react.useEffect)(() => {
+		if (!inView) return;
+		let raf = 0;
+		let startTime = null;
+		const tick = (t) => {
+			if (startTime === null) startTime = t;
+			const p = Math.min((t - startTime) / 1600, 1);
+			setValue(Math.round(to * (1 - Math.pow(1 - p, 3))));
+			if (p < 1) raf = requestAnimationFrame(tick);
+		};
+		raf = requestAnimationFrame(tick);
+		return () => cancelAnimationFrame(raf);
+	}, [inView, to]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+		ref,
+		className: "tabular-nums",
+		children: [value, suffix]
+	});
+}
+var MOBILE_BREAKPOINT = 768;
+function useIsMobile() {
+	const [isMobile, setIsMobile] = import_react.useState(void 0);
+	import_react.useEffect(() => {
+		const mql = window.matchMedia(`(max-width: 767px)`);
+		const onChange = () => {
+			setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+		};
+		mql.addEventListener("change", onChange);
+		setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+		return () => mql.removeEventListener("change", onChange);
+	}, []);
+	return !!isMobile;
+}
+var hero_datacenter_default = "/assets/hero-datacenter-JXiqNnPo.jpg";
+var networking_default = "/assets/networking-CK_abagK.jpg";
+var amc_engineer_default = "/assets/amc-engineer-BvR1-udQ.jpg";
+var workplace_default = "/assets/workplace-BBtZCRCc.jpg";
+var NAV = [
+	{
+		label: "Services",
+		href: "#services"
+	},
+	{
+		label: "Solutions",
+		href: "#solutions"
+	},
+	{
+		label: "Products",
+		href: "#products"
+	},
+	{
+		label: "Industries",
+		href: "#industries"
+	},
+	{
+		label: "About",
+		href: "#about"
+	},
+	{
+		label: "Contact",
+		href: "#contact"
+	}
+];
+var SERVICES = [
+	{
+		title: "IT Hardware Supply",
+		desc: "Laptops, desktops, servers and peripherals from trusted OEMs."
+	},
+	{
+		title: "Computer & Laptop Solutions",
+		desc: "Business-grade systems configured for productivity and security."
+	},
+	{
+		title: "Server Solutions",
+		desc: "Tower and rack servers with installation and configuration support."
+	},
+	{
+		title: "Networking Solutions",
+		desc: "Structured cabling, switches, Wi-Fi and network design."
+	},
+	{
+		title: "Hardware Installation",
+		desc: "On-site deployment, racking, imaging and hand-over."
+	},
+	{
+		title: "IT Infrastructure Setup",
+		desc: "End-to-end infrastructure planning and implementation."
+	},
+	{
+		title: "AMC Services",
+		desc: "Annual maintenance contracts for predictable uptime and cost control."
+	},
+	{
+		title: "Hardware Repair & Support",
+		desc: "Break-fix, spare parts and multi-brand technical support."
+	},
+	{
+		title: "CCTV & Security",
+		desc: "Surveillance design, installation and ongoing monitoring support."
+	},
+	{
+		title: "Data Center Solutions",
+		desc: "Rack, power, cooling and infrastructure for critical environments."
+	},
+	{
+		title: "System Integration",
+		desc: "Seamless integration of hardware, network and software layers."
+	},
+	{
+		title: "Enterprise IT Support",
+		desc: "Dedicated support models for growing and mid-size enterprises."
+	}
+];
+var SOLUTIONS = [
+	{
+		title: "Enterprise IT Infrastructure",
+		desc: "Complete design and deployment of scalable infrastructure foundations."
+	},
+	{
+		title: "Networking & Connectivity",
+		desc: "High-availability LAN/WAN, wireless and secure access solutions."
+	},
+	{
+		title: "Server & Storage",
+		desc: "Compute and storage platforms sized for performance and growth."
+	},
+	{
+		title: "Workplace IT Solutions",
+		desc: "Endpoints, collaboration hardware and managed workplace services."
+	},
+	{
+		title: "Security & Surveillance",
+		desc: "CCTV, access control and infrastructure security layers."
+	},
+	{
+		title: "IT Hardware Procurement",
+		desc: "Transparent sourcing of quality hardware at competitive value."
+	},
+	{
+		title: "Preventive Maintenance",
+		desc: "Scheduled health checks that reduce unexpected downtime."
+	},
+	{
+		title: "Managed IT Support",
+		desc: "Ongoing support models so your team can focus on the business."
+	}
+];
+var PRODUCTS = [
+	"Laptops",
+	"Desktops",
+	"Servers",
+	"Networking",
+	"Printers",
+	"Storage",
+	"UPS Systems",
+	"CCTV",
+	"Accessories",
+	"Peripherals"
+];
+var INDUSTRIES = [
+	"Healthcare",
+	"Education",
+	"Manufacturing",
+	"Retail",
+	"Banking & Finance",
+	"Government",
+	"Corporate Offices",
+	"Hospitality"
+];
+var PROCESS = [
+	{
+		num: "01",
+		title: "Understand",
+		desc: "We assess your current setup, goals and constraints."
+	},
+	{
+		num: "02",
+		title: "Recommend",
+		desc: "Clear proposals with the right hardware and approach."
+	},
+	{
+		num: "03",
+		title: "Deploy",
+		desc: "Professional installation, configuration and handover."
+	},
+	{
+		num: "04",
+		title: "Support",
+		desc: "Ongoing AMC, helpdesk and proactive maintenance."
+	}
+];
+var PARTNERS = [
+	"Dell",
+	"HP",
+	"Lenovo",
+	"Cisco",
+	"Microsoft",
+	"Intel",
+	"APC",
+	"Hikvision",
+	"TP-Link"
+];
+var TESTIMONIALS = [
+	{
+		quote: "Prompt response and reliable hardware support. Our systems have been more stable since we engaged the team.",
+		name: "Operations Manager",
+		role: "Manufacturing Client"
+	},
+	{
+		quote: "Professional installation of networking and servers. Clear communication throughout the project.",
+		name: "IT Head",
+		role: "Education Institution"
+	},
+	{
+		quote: "Good value AMC and quick on-site support when we needed it most. Recommended for mid-size offices.",
+		name: "Admin Lead",
+		role: "Corporate Office"
+	}
+];
+var FAQS = [
+	{
+		q: "What services does Bharat Strategic Solution provide?",
+		a: "We provide IT hardware supply, networking, server solutions, installation, AMC, repair support, CCTV, system integration and enterprise infrastructure services."
+	},
+	{
+		q: "Do you offer Annual Maintenance Contracts (AMC)?",
+		a: "Yes. We offer flexible AMC plans covering preventive maintenance, break-fix support, spare parts and both on-site and remote assistance."
+	},
+	{
+		q: "Which brands do you work with?",
+		a: "We work with major OEMs including Dell, HP, Lenovo, Cisco, Intel, APC, Hikvision, TP-Link and others based on customer requirements."
+	},
+	{
+		q: "Do you provide pan-India support?",
+		a: "Yes, we support customers across India through a combination of on-site engineers and remote support capabilities."
+	},
+	{
+		q: "How quickly can you respond to a support request?",
+		a: "Response times depend on the SLA selected. We prioritise critical issues and aim for rapid remote triage followed by on-site action when required."
+	}
+];
+function ScrollProgress() {
+	const { scrollYProgress } = useScroll();
+	const scaleX = useSpring(scrollYProgress, {
+		stiffness: 140,
+		damping: 30,
+		mass: .3
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+		style: { scaleX },
+		className: "fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-[image:var(--gradient-electric)]"
+	});
+}
+function Navbar() {
+	const [open, setOpen] = (0, import_react.useState)(false);
+	const { scrollY } = useScroll();
+	const bg = useTransform(scrollY, [0, 120], ["transparent", "color-mix(in oklab, var(--background) 88%, transparent)"]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.header, {
+		style: { backgroundColor: bg },
+		className: "fixed inset-x-0 top-0 z-50 backdrop-blur-xl",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+					href: "#home",
+					className: "flex items-center gap-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "grid h-10 w-10 place-items-center rounded-xl bg-[image:var(--gradient-electric)] font-display text-sm font-bold text-primary-foreground shadow-[var(--shadow-glow)]",
+						children: "BS"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "hidden sm:block leading-tight",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "block font-display text-base font-semibold",
+							children: "Bharat Strategic"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "block text-[10px] uppercase tracking-[0.22em] text-primary",
+							children: "Solution"
+						})]
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
+					className: "hidden items-center gap-1 lg:flex",
+					children: NAV.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+						href: item.href,
+						className: "rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-foreground font-medium",
+						children: item.label
+					}, item.href))
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center gap-3",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThemeToggle, {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: "#contact",
+							className: "hidden rounded-full bg-[image:var(--gradient-electric)] px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-shadow hover:shadow-[var(--shadow-glow)] sm:inline-flex",
+							children: "Get a Quote"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							"aria-label": "Toggle menu",
+							onClick: () => setOpen((v) => !v),
+							className: "grid h-10 w-10 place-items-center rounded-lg bg-secondary lg:hidden",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "space-y-1",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "block h-0.5 w-5 bg-foreground" }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "block h-0.5 w-5 bg-foreground" }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "block h-0.5 w-5 bg-foreground" })
+								]
+							})
+						})
+					]
+				})
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+			initial: false,
+			animate: {
+				height: open ? "auto" : 0,
+				opacity: open ? 1 : 0
+			},
+			className: "overflow-hidden border-t border-border bg-navy-deep/95 lg:hidden",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "space-y-1 px-5 py-4",
+				children: NAV.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+					href: item.href,
+					onClick: () => setOpen(false),
+					className: "block rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground",
+					children: item.label
+				}, item.href))
+			})
+		})]
+	});
+}
+function Hero() {
+	const ref = (0, import_react.useRef)(null);
+	const { scrollYProgress } = useScroll({
+		target: ref,
+		offset: ["start start", "end start"]
+	});
+	const y = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+	const scale = useTransform(scrollYProgress, [0, 1], [1.08, 1.28]);
+	const fade = useTransform(scrollYProgress, [0, .8], [1, 0]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		id: "home",
+		ref,
+		className: "relative flex min-h-screen items-center overflow-hidden",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.img, {
+				src: hero_datacenter_default,
+				alt: "Enterprise data center aisle with illuminated server racks",
+				width: 1920,
+				height: 1088,
+				style: {
+					y,
+					scale
+				},
+				className: "absolute inset-0 h-full w-full object-cover"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-[image:var(--hero-overlay)]" }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "grid-lines absolute inset-0 opacity-40" }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+				style: { opacity: fade },
+				className: "hero-content relative mx-auto w-full max-w-7xl px-5 py-32 lg:px-8",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "max-w-3xl",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+							variant: "blur",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-1.5 w-1.5 animate-pulse rounded-full bg-primary" }), "Trusted IT Infrastructure Partner"]
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
+							"data-split": true,
+							className: "mt-7 text-4xl font-bold leading-[1.05] opacity-0 sm:text-6xl lg:text-7xl",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "block",
+								children: "Powering Businesses with"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "block text-gradient",
+								children: "Reliable IT Infrastructure"
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+							delay: .5,
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground",
+								children: "End-to-end hardware supply, networking, AMC, server solutions and enterprise IT support — engineered for uptime and growth."
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+							delay: .62,
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "mt-10 flex flex-wrap gap-4",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+									href: "#services",
+									"data-magnetic": true,
+									className: "rounded-full bg-[image:var(--gradient-electric)] px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-shadow hover:shadow-[var(--shadow-glow)]",
+									children: "Explore Services"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+									href: "#contact",
+									"data-magnetic": true,
+									className: "rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-secondary",
+									children: "Contact Us"
+								})]
+							})
+						})
+					]
+				})
+			})
+		]
+	});
+}
+function About() {
+	const ref = (0, import_react.useRef)(null);
+	const { scrollYProgress } = useScroll({
+		target: ref,
+		offset: ["start end", "end start"]
+	});
+	const imgY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "about",
+		ref,
+		className: "relative py-28 md:py-36",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-2 lg:gap-20 lg:px-8",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+				eyebrow: "Who We Are",
+				title: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+					"Technology infrastructure that keeps your business ",
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-gradient",
+						children: "moving"
+					}),
+					"."
+				] }),
+				subtitle: "Bharat Strategic Solution is a modern IT hardware and infrastructure partner delivering precision-engineered solutions — from single workstation setups to full enterprise data center deployments."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+				delay: .2,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4",
+					children: [[
+						{
+							value: 10,
+							suffix: "+",
+							label: "Years Experience"
+						},
+						{
+							value: 500,
+							suffix: "+",
+							label: "Projects Supported"
+						},
+						{
+							value: 200,
+							suffix: "+",
+							label: "Customers Served"
+						}
+					].map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "font-display text-3xl font-bold text-gradient",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CountUp, {
+							to: s.value,
+							suffix: s.suffix
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-1 text-xs uppercase tracking-wider text-muted-foreground",
+						children: s.label
+					})] }, s.label)), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "font-display text-3xl font-bold text-gradient",
+						children: "24/7"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-1 text-xs uppercase tracking-wider text-muted-foreground",
+						children: "Technical Support"
+					})] })]
+				})
+			})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+				variant: "scale",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "relative overflow-hidden rounded-3xl border border-border",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.img, {
+							src: workplace_default,
+							alt: "Modern corporate workspace with business desktops and laptops",
+							loading: "lazy",
+							width: 1400,
+							height: 1e3,
+							style: { y: imgY },
+							className: "h-[26rem] w-full scale-110 object-cover"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-[linear-gradient(200deg,transparent,oklch(0.15_0.045_255/0.75))]" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "absolute bottom-5 left-5 flex flex-wrap gap-2",
+							children: [
+								"Servers",
+								"Networking",
+								"24/7 Support"
+							].map((t) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "rounded-full border border-primary/30 bg-navy-deep/70 px-3 py-1 text-xs text-primary backdrop-blur",
+								children: t
+							}, t))
+						})
+					]
+				})
+			})]
+		})
+	});
+}
+function Services() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "services",
+		className: "relative border-y border-border bg-navy-deep py-28 md:py-36",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto max-w-7xl px-5 lg:px-8",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+				eyebrow: "What We Deliver",
+				title: "Our Services",
+				subtitle: "From hardware supply to full infrastructure management — every scale, one trusted partner.",
+				align: "center"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3",
+				children: SERVICES.map((s, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.article, {
+					initial: {
+						opacity: 0,
+						y: 60,
+						rotateX: 25
+					},
+					whileInView: {
+						opacity: 1,
+						y: 0,
+						rotateX: 0
+					},
+					viewport: {
+						once: true,
+						amount: .3
+					},
+					transition: {
+						duration: .65,
+						delay: i % 3 * .09,
+						ease: easeOut
+					},
+					whileHover: { y: -8 },
+					style: { transformPerspective: 1e3 },
+					className: "surface-card group relative overflow-hidden rounded-2xl p-6",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute -right-16 -top-16 h-32 w-32 rounded-full bg-primary/10 blur-2xl transition-opacity duration-500 group-hover:opacity-100 opacity-0" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "font-display text-xs font-semibold text-primary",
+							children: String(i + 1).padStart(2, "0")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "mt-3 text-lg font-semibold",
+							children: s.title
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-2 text-sm leading-relaxed text-muted-foreground",
+							children: s.desc
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "mt-5 h-px w-0 bg-[image:var(--gradient-electric)] transition-all duration-500 group-hover:w-full" })
+					]
+				}, s.title))
+			})]
+		})
+	});
+}
+function SolutionCard({ s, i }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "surface-card relative flex h-64 w-[78vw] shrink-0 snap-center flex-col justify-between overflow-hidden rounded-3xl p-7 sm:w-[22rem]",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-primary/10 blur-2xl" }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "font-display text-5xl font-bold text-primary/20",
+				children: String(i + 1).padStart(2, "0")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				className: "text-xl font-semibold",
+				children: s.title
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-2 text-sm leading-relaxed text-muted-foreground",
+				children: s.desc
+			})] })
+		]
+	});
+}
+function Solutions() {
+	const isMobile = useIsMobile();
+	const ref = (0, import_react.useRef)(null);
+	const { scrollYProgress } = useScroll({
+		target: ref,
+		offset: ["start start", "end end"]
+	});
+	const smooth = useSpring(scrollYProgress, {
+		stiffness: 90,
+		damping: 24,
+		mass: .4
+	});
+	const x = useTransform(smooth, [0, 1], ["2%", "-72%"]);
+	const heading = /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+		eyebrow: "Solutions",
+		title: "Solutions built around your business",
+		subtitle: isMobile ? "Swipe through the solutions." : "Keep scrolling — the cards move with you."
+	});
+	if (isMobile) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		id: "solutions",
+		className: "relative overflow-hidden py-24",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "mx-auto w-full max-w-7xl px-5",
+			children: heading
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-6 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+			children: SOLUTIONS.map((s, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SolutionCard, {
+				s,
+				i
+			}, s.title))
+		})]
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "solutions",
+		ref,
+		className: "relative h-[320vh]",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "sticky top-0 flex h-screen flex-col justify-center overflow-hidden",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mx-auto w-full max-w-7xl px-5 lg:px-8",
+				children: heading
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+				style: { x },
+				className: "mt-12 flex gap-6 px-5 will-change-transform lg:px-8",
+				children: SOLUTIONS.map((s, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SolutionCard, {
+					s,
+					i
+				}, s.title))
+			})]
+		})
+	});
+}
+function WhyUs() {
+	const points = [
+		{
+			title: "Multi-OEM Expertise",
+			desc: "Dell, HP, Lenovo, Cisco, Intel and more — one team across vendors."
+		},
+		{
+			title: "Fast Response",
+			desc: "On-site and remote support designed for minimal downtime."
+		},
+		{
+			title: "Flexible SLAs",
+			desc: "Standard to enterprise agreements tailored to your risk profile."
+		}
+	];
+	const ref = (0, import_react.useRef)(null);
+	const { scrollYProgress } = useScroll({
+		target: ref,
+		offset: ["start end", "end start"]
+	});
+	const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+	const scale = useTransform(scrollYProgress, [0, 1], [1.15, 1]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		className: "relative overflow-hidden py-28 md:py-36",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-2 lg:px-8",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+				ref,
+				className: "relative overflow-hidden rounded-3xl border border-border",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.img, {
+						style: {
+							y,
+							scale
+						},
+						src: networking_default,
+						alt: "Network switch patch panel with illuminated ports",
+						loading: "lazy",
+						width: 1400,
+						height: 1e3,
+						className: "h-[22rem] w-full object-cover md:h-[26rem]"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_35%,var(--navy-deep))] opacity-90" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+						initial: {
+							opacity: 0,
+							y: 24
+						},
+						whileInView: {
+							opacity: 1,
+							y: 0
+						},
+						viewport: {
+							once: true,
+							amount: .3
+						},
+						transition: {
+							duration: .7,
+							delay: .35,
+							ease: easeOut
+						},
+						className: "absolute bottom-5 left-5 right-5 flex items-center gap-4 rounded-2xl border border-border bg-navy/70 p-4 backdrop-blur-md",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "font-display text-3xl font-bold text-gradient",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CountUp, {
+								to: 99,
+								suffix: "%"
+							})
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs leading-relaxed text-muted-foreground",
+							children: "Uptime maintained across managed infrastructure and AMC contracts."
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+						"aria-hidden": true,
+						animate: { y: [
+							0,
+							-14,
+							0
+						] },
+						transition: {
+							duration: 6,
+							repeat: Infinity,
+							ease: "easeInOut"
+						},
+						className: "absolute right-5 top-5 rounded-full border border-primary/40 bg-primary/15 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary backdrop-blur-md",
+						children: "24×7 Support"
+					})
+				]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+				eyebrow: "Why Choose Us",
+				title: "The difference is measurable",
+				subtitle: "Precision, reliability and transparency define every engagement — from first consultation to long-term support partnership."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-10 space-y-4",
+				children: points.map((p, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+					variant: "right",
+					delay: i * .12,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+						whileHover: { x: 8 },
+						transition: {
+							type: "spring",
+							stiffness: 320,
+							damping: 24
+						},
+						className: "surface-card group rounded-2xl p-5",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "font-semibold transition-colors group-hover:text-primary",
+							children: p.title
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-1.5 text-sm text-muted-foreground",
+							children: p.desc
+						})]
+					})
+				}, p.title))
+			})] })]
+		})
+	});
+}
+function Products() {
+	const row = [...PRODUCTS, ...PRODUCTS];
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		id: "products",
+		className: "border-y border-border bg-navy-deep py-28 md:py-36",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "mx-auto max-w-7xl px-5 lg:px-8",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+				eyebrow: "Products",
+				title: "Hardware & devices",
+				subtitle: "Quality IT products for every business need.",
+				align: "center"
+			})
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "mt-14 space-y-5 overflow-hidden",
+			children: [0, 1].map((r) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"data-skew": true,
+				className: "flex w-max animate-marquee gap-5",
+				style: r === 1 ? { animationDirection: "reverse" } : void 0,
+				children: row.map((p, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "surface-card flex h-24 w-56 items-center justify-center rounded-2xl text-sm font-medium tracking-wide",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-gradient font-display text-lg",
+						children: p
+					})
+				}, `${r}-${p}-${i}`))
+			}, r))
+		})]
+	});
+}
+function Industries() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		id: "industries",
+		className: "py-28 md:py-36",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto max-w-7xl px-5 lg:px-8",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+				eyebrow: "Industries",
+				title: "Industries we serve",
+				align: "center"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-14 grid grid-cols-2 gap-4 md:grid-cols-4",
+				children: INDUSTRIES.map((name, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+					initial: {
+						opacity: 0,
+						scale: .85,
+						y: 30
+					},
+					whileInView: {
+						opacity: 1,
+						scale: 1,
+						y: 0
+					},
+					viewport: {
+						once: true,
+						amount: .4
+					},
+					transition: {
+						duration: .55,
+						delay: i * .06,
+						ease: easeOut
+					},
+					whileHover: { scale: 1.04 },
+					className: "surface-card group relative grid h-36 place-items-center overflow-hidden rounded-2xl",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "absolute inset-0 bg-[image:var(--gradient-electric)] opacity-0 transition-opacity duration-500 group-hover:opacity-15" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "relative text-sm font-semibold",
+						children: name
+					})]
+				}, name))
+			})]
+		})
+	});
+}
+function Amc() {
+	const ref = (0, import_react.useRef)(null);
+	const { scrollYProgress } = useScroll({
+		target: ref,
+		offset: ["start end", "end start"]
+	});
+	const y = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		ref,
+		className: "relative overflow-hidden",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.img, {
+				src: amc_engineer_default,
+				alt: "Engineer servicing a rack server on site",
+				loading: "lazy",
+				width: 1400,
+				height: 1e3,
+				style: { y },
+				"data-wipe": true,
+				className: "absolute inset-0 h-[130%] w-full object-cover"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-[linear-gradient(90deg,oklch(0.15_0.045_255/0.96),oklch(0.15_0.045_255/0.7))]" }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "relative mx-auto max-w-7xl px-5 py-28 md:py-36 lg:px-8",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "max-w-xl",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+						eyebrow: "AMC & Support",
+						title: "Keep your IT infrastructure running",
+						subtitle: "Preventive maintenance, hardware troubleshooting, network support, on-site & remote assistance, and timely hardware replacement."
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Reveal, {
+						delay: .2,
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "mt-8 flex flex-wrap gap-2",
+							children: [
+								"Preventive Maintenance",
+								"Hardware Troubleshooting",
+								"Network Support",
+								"On-site & Remote"
+							].map((t) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "rounded-full border border-primary/25 bg-navy-deep/60 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur",
+								children: t
+							}, t))
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: "#contact",
+							"data-magnetic": true,
+							className: "mt-8 inline-flex rounded-full bg-[image:var(--gradient-electric)] px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-shadow hover:shadow-[var(--shadow-glow)]",
+							children: "Get IT Support"
+						})]
+					})]
+				})
+			})
+		]
+	});
+}
+function Process() {
+	const ref = (0, import_react.useRef)(null);
+	const { scrollYProgress } = useScroll({
+		target: ref,
+		offset: ["start 75%", "end 60%"]
+	});
+	const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		className: "border-y border-border bg-navy-deep py-28 md:py-36",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto max-w-5xl px-5 lg:px-8",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+				eyebrow: "How We Work",
+				title: "Our process",
+				align: "center"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				ref,
+				className: "relative mt-16 pl-10",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute left-3 top-0 h-full w-px bg-border" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+						style: { height },
+						className: "absolute left-3 top-0 w-px bg-[image:var(--gradient-electric)]"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "space-y-12",
+						children: PROCESS.map((p, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+							variant: "left",
+							delay: i * .05,
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "relative",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "absolute -left-[1.87rem] top-1.5 h-3 w-3 rounded-full bg-primary shadow-[var(--shadow-glow)]" }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "font-display text-sm font-bold text-primary",
+										children: p.num
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+										className: "mt-1 text-xl font-semibold",
+										children: p.title
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "mt-1.5 text-sm text-muted-foreground",
+										children: p.desc
+									})
+								]
+							})
+						}, p.num))
+					})
+				]
+			})]
+		})
+	});
+}
+function Partners() {
+	const row = [...PARTNERS, ...PARTNERS];
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "py-24",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mx-auto max-w-7xl px-5 lg:px-8",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+					eyebrow: "Ecosystem",
+					title: "Technology partners & trusted by",
+					align: "center"
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-12 overflow-hidden",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					"data-skew": true,
+					className: "flex w-max animate-marquee items-center gap-14 px-8",
+					children: row.map((p, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "font-display text-2xl font-semibold text-muted-foreground/60",
+						children: p
+					}, `${p}-${i}`))
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-8 text-center text-xs text-muted-foreground",
+				children: "Brand names shown for ecosystem reference only — not official partnership claims."
+			})
+		]
+	});
+}
+function Testimonials() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		className: "border-y border-border bg-navy-deep py-28 md:py-36",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto max-w-7xl px-5 lg:px-8",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+				eyebrow: "Testimonials",
+				title: "What clients say",
+				align: "center"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-14 grid gap-6 md:grid-cols-3",
+				children: TESTIMONIALS.map((t, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+					variant: "rotate",
+					delay: i * .12,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("figure", {
+						className: "surface-card h-full rounded-3xl p-7",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-display text-4xl text-primary/40",
+								children: "“"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("blockquote", {
+								className: "mt-2 text-sm leading-relaxed text-muted-foreground",
+								children: t.quote
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("figcaption", {
+								className: "mt-6 border-t border-border pt-4",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "block text-sm font-semibold",
+									children: t.name
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "block text-xs text-muted-foreground",
+									children: t.role
+								})]
+							})
+						]
+					})
+				}, t.name))
+			})]
+		})
+	});
+}
+function Faq() {
+	const [open, setOpen] = (0, import_react.useState)(0);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		className: "py-28 md:py-36",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto max-w-3xl px-5 lg:px-8",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+				eyebrow: "FAQ",
+				title: "Frequently asked questions",
+				align: "center"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-12 space-y-3",
+				children: FAQS.map((f, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+					delay: i * .06,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "surface-card overflow-hidden rounded-2xl",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							onClick: () => setOpen(open === i ? null : i),
+							className: "flex w-full items-center justify-between gap-4 px-6 py-5 text-left text-sm font-semibold",
+							children: [f.q, /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.span, {
+								animate: { rotate: open === i ? 45 : 0 },
+								className: "text-primary",
+								children: "+"
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+							initial: false,
+							animate: {
+								height: open === i ? "auto" : 0,
+								opacity: open === i ? 1 : 0
+							},
+							transition: {
+								duration: .35,
+								ease: easeOut
+							},
+							className: "overflow-hidden",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "px-6 pb-6 text-sm leading-relaxed text-muted-foreground",
+								children: f.a
+							})
+						})]
+					})
+				}, f.q))
+			})]
+		})
+	});
+}
+function Contact() {
+	const [sent, setSent] = (0, import_react.useState)(false);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		id: "contact",
+		className: "relative overflow-hidden border-t border-border py-28 md:py-36",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "grid-lines absolute inset-0 opacity-30" }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/20 blur-[120px]" }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "relative mx-auto grid max-w-7xl gap-14 px-5 lg:grid-cols-2 lg:px-8",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionHeading, {
+					eyebrow: "Get in touch",
+					title: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Let’s build ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-gradient",
+						children: "what’s next."
+					})] }),
+					subtitle: "Hardware, networking, AMC or full infrastructure — tell us what you need."
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+					delay: .2,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ul", {
+						className: "mt-10 space-y-3 text-sm text-muted-foreground",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: "support@bharatstrategic.example" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: "+91 XXXXX XXXXX" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: "Pan-India support" })
+						]
+					})
+				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
+					variant: "scale",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+						onSubmit: (e) => {
+							e.preventDefault();
+							setSent(true);
+						},
+						className: "surface-card space-y-4 rounded-3xl p-7",
+						children: [
+							[
+								{
+									name: "name",
+									label: "Name",
+									type: "text"
+								},
+								{
+									name: "email",
+									label: "Email",
+									type: "email"
+								},
+								{
+									name: "company",
+									label: "Company",
+									type: "text"
+								}
+							].map((f) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+								htmlFor: f.name,
+								className: "mb-1.5 block text-xs uppercase tracking-wider text-muted-foreground",
+								children: f.label
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+								id: f.name,
+								name: f.name,
+								type: f.type,
+								required: f.name !== "company",
+								className: "w-full rounded-xl border border-border bg-navy-deep/60 px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+							})] }, f.name)),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+								htmlFor: "message",
+								className: "mb-1.5 block text-xs uppercase tracking-wider text-muted-foreground",
+								children: "Requirement"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+								id: "message",
+								name: "message",
+								rows: 4,
+								required: true,
+								className: "w-full rounded-xl border border-border bg-navy-deep/60 px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+							})] }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								type: "submit",
+								className: "w-full rounded-full bg-[image:var(--gradient-electric)] px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-shadow hover:shadow-[var(--shadow-glow)]",
+								children: "Request a Quote"
+							}),
+							sent ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-center text-xs text-primary",
+								children: "Thank you! We’ll respond within 24 hours."
+							}) : null
+						]
+					})
+				})]
+			})
+		]
+	});
+}
+function Footer() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("footer", {
+		className: "border-t border-border bg-navy-deep py-14",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto grid max-w-7xl gap-10 px-5 sm:grid-cols-3 lg:px-8",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "font-display text-lg font-semibold",
+					children: "Bharat Strategic Solution"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 max-w-xs text-sm text-muted-foreground",
+					children: "Powering reliable IT infrastructure for businesses across India."
+				})] }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "text-sm font-semibold",
+					children: "Services"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+					className: "mt-3 space-y-2 text-sm text-muted-foreground",
+					children: [
+						"Hardware Supply",
+						"Networking",
+						"AMC & Support",
+						"Server Solutions"
+					].map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: s }, s))
+				})] }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "text-sm font-semibold",
+					children: "Company"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ul", {
+					className: "mt-3 space-y-2 text-sm text-muted-foreground",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: "#about",
+							className: "hover:text-foreground",
+							children: "About"
+						}) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: "#products",
+							className: "hover:text-foreground",
+							children: "Products"
+						}) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: "#contact",
+							className: "hover:text-foreground",
+							children: "Contact"
+						}) })
+					]
+				})] })
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "mt-10 text-center text-xs text-muted-foreground",
+			children: "© 2026 Bharat Strategic Solution. All rights reserved."
+		})]
+	});
+}
+/**
+* Global GSAP scroll layer (madewithgsap-style):
+* - SplitText character reveals on [data-split] headings
+* - Scrubbed parallax on [data-speed]
+* - Scroll-velocity skew on [data-skew]
+* - Magnetic cursor pull on [data-magnetic]
+* - Batched staggered entrances on [data-reveal]
+* - Clip-path image wipes on [data-wipe]
+*/
+function GsapFx() {
+	(0, import_react.useEffect)(() => {
+		let ctx;
+		let cancelled = false;
+		(async () => {
+			const [{ gsap }, { ScrollTrigger }, { SplitText }] = await Promise.all([
+				import("../_libs/gsap.mjs").then((n) => n.t),
+				import("../_libs/gsap.mjs").then((n) => n.r),
+				import("../_libs/gsap.mjs").then((n) => n.n)
+			]);
+			if (cancelled) return;
+			gsap.registerPlugin(ScrollTrigger, SplitText);
+			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				gsap.set("[data-split]", { opacity: 1 });
+				return;
+			}
+			ctx = gsap.context(() => {
+				document.querySelectorAll("[data-split]").forEach((el) => {
+					const split = new SplitText(el, {
+						type: "lines,chars",
+						linesClass: "overflow-hidden"
+					});
+					gsap.set(el, { opacity: 1 });
+					gsap.from(split.chars, {
+						yPercent: 120,
+						opacity: 0,
+						rotateX: -60,
+						stagger: .018,
+						duration: .9,
+						ease: "power4.out",
+						scrollTrigger: {
+							trigger: el,
+							start: "top 88%",
+							once: true
+						}
+					});
+				});
+				document.querySelectorAll("[data-speed]").forEach((el) => {
+					const speed = parseFloat(el.dataset["speed"] || "0.2");
+					gsap.fromTo(el, { yPercent: -speed * 50 }, {
+						yPercent: speed * 50,
+						ease: "none",
+						scrollTrigger: {
+							trigger: el,
+							start: "top bottom",
+							end: "bottom top",
+							scrub: true
+						}
+					});
+				});
+				ScrollTrigger.batch("[data-reveal]", {
+					start: "top 90%",
+					once: true,
+					onEnter: (batch) => gsap.fromTo(batch, {
+						y: 60,
+						opacity: 0,
+						scale: .96
+					}, {
+						y: 0,
+						opacity: 1,
+						scale: 1,
+						duration: .9,
+						ease: "power3.out",
+						stagger: .08,
+						overwrite: true
+					})
+				});
+				document.querySelectorAll("[data-wipe]").forEach((el) => {
+					gsap.fromTo(el, { clipPath: "inset(0% 0% 100% 0%)" }, {
+						clipPath: "inset(0% 0% 0% 0%)",
+						duration: 1.2,
+						ease: "power4.out",
+						scrollTrigger: {
+							trigger: el,
+							start: "top 85%",
+							once: true
+						}
+					});
+				});
+				const skewTargets = gsap.utils.toArray("[data-skew]");
+				if (skewTargets.length) {
+					const setters = skewTargets.map((el) => gsap.quickTo(el, "skewY", {
+						duration: .6,
+						ease: "power3"
+					}));
+					ScrollTrigger.create({
+						onUpdate: (self) => {
+							const skew = gsap.utils.clamp(-6, 6, self.getVelocity() / -260);
+							setters.forEach((set) => set(skew));
+						},
+						onScrubComplete: () => setters.forEach((set) => set(0))
+					});
+					let idle;
+					const reset = () => {
+						clearTimeout(idle);
+						idle = setTimeout(() => setters.forEach((set) => set(0)), 140);
+					};
+					window.addEventListener("scroll", reset, { passive: true });
+				}
+				document.querySelectorAll("[data-magnetic]").forEach((el) => {
+					const xTo = gsap.quickTo(el, "x", {
+						duration: .5,
+						ease: "power3"
+					});
+					const yTo = gsap.quickTo(el, "y", {
+						duration: .5,
+						ease: "power3"
+					});
+					const move = (e) => {
+						const r = el.getBoundingClientRect();
+						xTo((e.clientX - (r.left + r.width / 2)) * .35);
+						yTo((e.clientY - (r.top + r.height / 2)) * .45);
+					};
+					const leave = () => {
+						xTo(0);
+						yTo(0);
+					};
+					el.addEventListener("mousemove", move);
+					el.addEventListener("mouseleave", leave);
+				});
+				ScrollTrigger.refresh();
+			});
+		})();
+		return () => {
+			cancelled = true;
+			ctx?.revert();
+		};
+	}, []);
+	return null;
+}
+function Index() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "relative",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(GsapFx, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScrollProgress, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Navbar, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hero, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(About, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Services, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Solutions, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(WhyUs, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Products, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Industries, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Amc, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Process, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Partners, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Testimonials, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Faq, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Contact, {})
+			] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Footer, {})
+		]
+	});
+}
+//#endregion
+export { Index as component };
