@@ -12,11 +12,11 @@ import workplaceImg from "@/assets/workplace.jpg";
 /* ---------------------------------- data --------------------------------- */
 
 const NAV = [
+  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Solutions", href: "#solutions" },
   { label: "Products", href: "#products" },
   { label: "Industries", href: "#industries" },
-  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
 
